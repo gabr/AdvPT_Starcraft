@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="units.xml" />
+    <Xml Include="buildings.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

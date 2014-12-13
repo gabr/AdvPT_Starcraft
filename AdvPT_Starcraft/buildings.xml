@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<buildings>
+  <nexus>
+    <minerals>400</minerals>
+    <vespene>0</vespene>
+    <supply>0</supply>
+    <build-time>100</build-time>
+    <buildings></buildings>
+  </nexus>
+
+  <gateway>
+    <minerals>150</minerals>
+    <vespene>0</vespene>
+    <supply>0</supply>
+    <build-time>65</build-time>
+    <buildings>
+      <nexus></nexus>
+      <pylon></pylon>
+    </buildings>    
+  </gateway>
+
+  <cybernetics_core>
+    <minerals>150</minerals>
+    <vespene>0</vespene>
+    <supply>0</supply>
+    <build-time>50</build-time>
+    <buildings>
+      <gateway></gateway>
+    </buildings>  
+  </cybernetics_core>
+
+  <robotics_facility>
+    <minerals>200</minerals>
+    <vespene>100</vespene>
+    <supply>0</supply>
+    <build-time>65</build-time>
+    <buildings>
+      <cybernetics_core></cybernetics_core>
+    </buildings> 
+  </robotics_facility>
+
+  <robotics_bay>
+    <minerals>200</minerals>
+    <vespene>200</vespene>
+    <supply>0</supply>
+    <build-time>65</build-time>
+    <buildings>
+      <robotics_facility></robotics_facility>
+    </buildings>  
+  </robotics_bay>
+
+  <pylon>
+    <minerals>100</minerals>
+    <vespene>0</vespene>
+    <supply>0</supply>
+    <build-time>25</build-time>
+    <buildings></buildings>
+  </pylon>
+
+  <assimilator>
+    <minerals>75</minerals>
+    <vespene>0</vespene>
+    <supply>0</supply>
+    <build-time>30</build-time>
+    <buildings></buildings> 
+  </assimilator>
+
+  <forge>
+    <minerals>150</minerals>
+    <vespene>0</vespene>
+    <supply>0</supply>
+    <build-time>45</build-time>
+    <buildings>
+      <nexus></nexus>
+      <pylon></pylon>
+    </buildings> 
+  </forge>
+
+  <photon_cannon>
+    <minerals>150</minerals>
+    <vespene>0</vespene>
+    <supply>0</supply>
+    <build-time>40</build-time>
+    <buildings>
+      <forge></forge>
+    </buildings> 
+  </photon_cannon>
+
+  <twilight_council>
+    <minerals>150</minerals>
+    <vespene>100</vespene>
+    <supply>0</supply>
+    <build-time>50</build-time>
+    <buildings>
+      <cybernetics_core></cybernetics_core>
+    </buildings>
+  </twilight_council>
+
+  <stargate>
+    <minerals>150</minerals>
+    <vespene>150</vespene>
+    <supply>0</supply>
+    <build-time>60</build-time>
+    <buildings>
+      <cybernetics_core></cybernetics_core>
+    </buildings> 
+  </stargate>
+
+  <templar_archives>
+    <minerals>150</minerals>
+    <vespene>200</vespene>
+    <supply>0</supply>
+    <build-time>50</build-time>
+    <buildings>
+      <twilight_council></twilight_council>
+    </buildings>
+  </templar_archives>
+
+  <dark_shrine>
+    <minerals>100</minerals>
+    <vespene>250</vespene>
+    <supply>0</supply>
+    <build-time>100</build-time>
+    <buildings>
+      <twilight_council></twilight_council>
+    </buildings>
+  </dark_shrine>
+
+  <fleet_beacon>
+    <minerals>300</minerals>
+    <vespene>200</vespene>
+    <supply>0</supply>
+    <build-time>60</build-time>
+    <buildings>
+      <stargate></stargate>
+    </buildings>
+  </fleet_beacon>
+  
+</buildings>

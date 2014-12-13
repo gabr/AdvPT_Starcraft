@@ -31,5 +31,8 @@
     <Xml Include="units.xml">
       <Filter>Resource Files</Filter>
     </Xml>
+    <Xml Include="buildings.xml">
+      <Filter>Resource Files</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

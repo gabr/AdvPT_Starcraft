@@ -120,16 +120,6 @@
     </buildings>    
   </dark_templar>
 
-  <archon>
-    <minerals>0</minerals>
-    <vespene>0</vespene>
-    <supply>4</supply>
-    <build-time>12</build-time>
-    <buildings>
-      <high_templar></high_templar>
-    </buildings>    
-  </archon>
-
   <carrier>
     <minerals>350</minerals>
     <vespene>250</vespene>
@@ -179,4 +169,5 @@
       <stargate></stargate>
     </buildings>    
   </tempest>
+
 </unit>
