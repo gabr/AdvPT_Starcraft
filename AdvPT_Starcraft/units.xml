@@ -27,6 +27,7 @@
     <build-time>42</build-time>
     <buildings>
       <gateway></gateway>
+      <cybernetics_core></cybernetics_core>
     </buildings>  
   </stalker>
 
@@ -37,6 +38,7 @@
     <build-time>37</build-time>
     <buildings>
       <gateway></gateway>
+      <cybernetics_core></cybernetics_core>
     </buildings>  
   </sentry>
 
@@ -77,6 +79,7 @@
     <build-time>75</build-time>
     <buildings>
       <robotics_facility></robotics_facility>
+      <robotics_bay></robotics_bay>
     </buildings>
   </colossus>
 
@@ -93,7 +96,7 @@
   <void_ray>
     <minerals>250</minerals>
     <vespene>150</vespene>
-    <supply>4</supply>
+    <supply>3</supply>
     <build-time>60</build-time>
     <buildings>
       <stargate></stargate>
@@ -107,6 +110,7 @@
     <build-time>55</build-time>
     <buildings>
       <gateway></gateway>
+      <templar_archives></templar_archives>
     </buildings>    
   </high_templar>
 
@@ -117,6 +121,7 @@
     <build-time>55</build-time>
     <buildings>
       <gateway></gateway>
+      <dark_shrine></dark_shrine>
     </buildings>    
   </dark_templar>
 
@@ -127,47 +132,19 @@
     <build-time>120</build-time>
     <buildings>
       <stargate></stargate>
+      <fleet_beacon></fleet_beacon>
     </buildings>    
   </carrier>
 
   <mothership>
-    <minerals>300</minerals>
-    <vespene>300</vespene>
-    <supply>6</supply>
-    <build-time>100</build-time>
-    <buildings>
-      <mothership_core></mothership_core>
-    </buildings>    
-  </mothership>
-
-  <mothership_core>
-    <minerals>100</minerals>
-    <vespene>100</vespene>
-    <supply>2</supply>
-    <build-time>30</build-time>
+    <minerals>400</minerals>
+    <vespene>400</vespene>
+    <supply>8</supply>
+    <build-time>160</build-time>
     <buildings>
       <nexus></nexus>
+      <fleet_beacon></fleet_beacon>
     </buildings>    
-  </mothership_core>
-
-  <oracle>
-    <minerals>150</minerals>
-    <vespene>150</vespene>
-    <supply>3</supply>
-    <build-time>50</build-time>
-    <buildings>
-      <stargate></stargate>
-    </buildings>    
-  </oracle>
-
-  <tempest>
-    <minerals>300</minerals>
-    <vespene>200</vespene>
-    <supply>4</supply>
-    <build-time>60</build-time>
-    <buildings>
-      <stargate></stargate>
-    </buildings>    
-  </tempest>
+  </mothership>
 
 </unit>
