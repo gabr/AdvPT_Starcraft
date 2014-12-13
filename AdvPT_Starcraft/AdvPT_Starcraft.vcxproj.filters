@@ -18,13 +18,8 @@
     <ClInclude Include="Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Unit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="units.xml">
-      <Filter>Resource Files</Filter>
-    </Xml>
+    <Xml Include="units.xml" />
   </ItemGroup>
 </Project>

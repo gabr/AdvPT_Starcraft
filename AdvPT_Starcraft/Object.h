@@ -42,7 +42,7 @@ protected:
 
 public:
     virtual bool init() = 0;
-    virtual std::string toString() { return _name; }
+    std::string toString() { return _name; }
 
     static ObjectType resolveType(std::string objectName)
     {
