@@ -3,6 +3,14 @@
 #include <algorithm>
 #include <forward_list>
 
+struct Requirements
+{
+    unsigned int mineral = 0;
+    unsigned int vespen = 0;
+    unsigned int supply = 0;
+    unsigned int time = 0;
+};
+
 class Object
 {
 protected:
@@ -24,15 +32,13 @@ protected:
     static const std::string buildingTypeStrings[_numberOfBuildingsTypes];
 
     // requirements
-    unsigned int _required_mineral = 0;
-    unsigned int _required_vespen = 0;
-    unsigned int _required_supply = 0;
-
+    Requirements _requirements;
     std::forward_list<BuildingType> _required_buildings;
 
     // object informations
-    std::string _name;
-    ObjectType _type;
+    std::string _name = "";
+    ObjectType _type = Unknown;
+    unsigned int _startTime = 0;
 
 public:
     virtual bool init() = 0;
@@ -54,12 +60,12 @@ public:
 };
 
 // statics initializations
-const std::string Object::objectTypeStrings[3] = { "Unit", "Building", "Unknown" };
+const std::string Object::objectTypeStrings[3] = { "unit", "building", "unknown" };
 
 const std::string Object::unitTypeStrings[Object::_numberOfUnitsTypes] = {
-    "Probe", "Zealot", "Stalker", "Sentry", "Observer", "Immortal", "WarpPrism",
-    "Colossus", "Phoenix", "VoidRay", "HighTemplar", "DarkTemplar", "Carrier", "Mothership" };
+    "probe", "zealot", "stalker", "sentry", "observer", "immortal", "warp_prism",
+    "colossus", "phoenix", "void_ray", "high_templar", "dark_templar", "carrier", "mothership" };
 
 const std::string Object::buildingTypeStrings[Object::_numberOfBuildingsTypes] = {
-    "Nexus", "Pylon", "Assimilator", "Gateway", "Warpgate", "Forge", "CyberneticsCore",
-    "PhotonCannon", "Stargate", "RoboticsFacility", "TwilightControl", "FleetBeacon", "RoboticsBay", "DarkShrine", "TemplarArchives" };
+    "nexus", "pylon", "assimilator", "gateway", "warpgate", "forge", "cybernetics_core",
+    "photon_cannon", "stargate", "robotics_facility", "twilight_control", "fleet_beacon", "robotics_bay", "dark_shrine", "templar_archives" };
