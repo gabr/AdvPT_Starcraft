@@ -20,6 +20,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="units.xml" />
+    <Xml Include="units.xml">
+      <Filter>Resource Files</Filter>
+    </Xml>
   </ItemGroup>
 </Project>
