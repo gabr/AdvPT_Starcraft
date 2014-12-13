@@ -36,8 +36,9 @@ protected:
     std::forward_list<BuildingType> _required_buildings;
 
     // object informations
-    std::string _name;
-    ObjectType _type;
+    std::string _name = "";
+    ObjectType _type = Unknown;
+    unsigned int _startTime = 0;
 
 public:
     virtual bool init() = 0;
