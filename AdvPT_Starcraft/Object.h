@@ -40,6 +40,21 @@ protected:
     ObjectType _type = Unknown;
     unsigned int _startTime = 0;
 
+    bool checkRequirements(unsigned int& globalMineral, unsigned int &globalVespen, unsigned int &globalSupply)
+    {
+        if (_requirements.mineral <= globalMineral
+            && _requirements.vespen <= globalVespen
+            && _requirements.supply <= globalSupply)
+        {
+            globalMineral -= _requirements.mineral;
+            globalVespen -= _requirements.vespen;
+            globalSupply -= _requirements.supply;
+            return true;
+        }
+
+        return false;
+    }
+
 public:
     virtual bool init() = 0;
     std::string toString() { return _name; }
