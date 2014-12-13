@@ -77,10 +77,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Object.h" />
-    <ClInclude Include="Unit.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Unit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="units.xml" />
