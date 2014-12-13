@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <algorithm>
 #include <forward_list>
 
 class Object
@@ -7,22 +8,20 @@ class Object
 protected:
 
     // enums
-    enum ObjectType {Unit, Building};
-    const std::string objectTypeStrings[2] = { "Unit", "Building" };
+    static enum ObjectType {Unit, Building, Unknown};
+    static const std::string objectTypeStrings[3];
 
-    enum UnitType {
+    static const unsigned short _numberOfUnitsTypes = 14;
+    static enum UnitType {
         Probe, Zealot, Stalker, Sentry, Observer, Immortal, WarpPrism,
         Colossus, Phoenix, VoidRay, HighTemplar, DarkTemplar, Carrier, Mothership};
-    const std::string unitTypeStrings[14] = {
-        "Probe", "Zealot", "Stalker", "Sentry", "Observer", "Immortal", "WarpPrism",
-        "Colossus", "Phoenix", "VoidRay", "HighTemplar", "DarkTemplar", "Carrier", "Mothership"};
+    static const std::string unitTypeStrings[_numberOfUnitsTypes];
 
-    enum BuildingType {
+    static const unsigned short _numberOfBuildingsTypes = 15;
+    static enum BuildingType {
         Nexus, Pylon, Assimilator, Gateway, Warpgate, Forge, CyberneticsCore,
         PhotonCannon, Stargate, RoboticsFacility, TwilightControl, FleetBeacon, RoboticsBay, DarkShrine, TemplarArchives};
-    const std::string buildingTypeStrings[15] = {
-        "Nexus", "Pylon", "Assimilator", "Gateway", "Warpgate", "Forge", "CyberneticsCore",
-        "PhotonCannon", "Stargate", "RoboticsFacility", "TwilightControl", "FleetBeacon", "RoboticsBay", "DarkShrine", "TemplarArchives"};
+    static const std::string buildingTypeStrings[_numberOfBuildingsTypes];
 
     // requirements
     unsigned int _required_mineral = 0;
@@ -38,5 +37,29 @@ protected:
 public:
     virtual bool init() = 0;
     virtual std::string toString() { return _name; }
+
+    static ObjectType resolveType(std::string objectName)
+    {
+        // check all units
+        for (unsigned int i = 0; i < _numberOfUnitsTypes; i++)
+            if (objectName == unitTypeStrings[i]) return Unit;
+
+        // check all buildings
+        for (unsigned int i = 0; i < _numberOfBuildingsTypes; i++)
+            if (objectName == buildingTypeStrings[i]) return Building;
+
+        // unknown object name
+        return Unknown;
+    }
 };
 
+// statics initializations
+const std::string Object::objectTypeStrings[3] = { "Unit", "Building", "Unknown" };
+
+const std::string Object::unitTypeStrings[Object::_numberOfUnitsTypes] = {
+    "Probe", "Zealot", "Stalker", "Sentry", "Observer", "Immortal", "WarpPrism",
+    "Colossus", "Phoenix", "VoidRay", "HighTemplar", "DarkTemplar", "Carrier", "Mothership" };
+
+const std::string Object::buildingTypeStrings[Object::_numberOfBuildingsTypes] = {
+    "Nexus", "Pylon", "Assimilator", "Gateway", "Warpgate", "Forge", "CyberneticsCore",
+    "PhotonCannon", "Stargate", "RoboticsFacility", "TwilightControl", "FleetBeacon", "RoboticsBay", "DarkShrine", "TemplarArchives" };
