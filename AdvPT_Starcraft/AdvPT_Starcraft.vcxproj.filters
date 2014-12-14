@@ -18,7 +18,13 @@
     <ClInclude Include="Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="XmlReader.h">
+    <ClInclude Include="Types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+	<ClInclude Include="XmlReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
