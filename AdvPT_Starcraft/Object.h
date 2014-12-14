@@ -4,21 +4,14 @@
 #include <forward_list>
 
 #include "Types.h"
-
-struct Requirements
-{
-    unsigned int mineral = 0;
-    unsigned int vespen = 0;
-    unsigned int supply = 0;
-    unsigned int time = 0;
-};
+#include "Resources.h"
 
 class Object
 {
 protected:
 
     // requirements
-    Requirements _requirements;
+    Resources::Data _requirements;
     std::forward_list<Types::BuildingType> _required_buildings;
 
     // object informations
