@@ -12,7 +12,6 @@ protected:
 
     // requirements
     Resources::Data _requirements;
-    std::forward_list<Types::BuildingType> _required_buildings;
 
     // object informations
     std::string _name = "";
