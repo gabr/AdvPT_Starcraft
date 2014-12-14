@@ -3,10 +3,6 @@
 
 class Types
 {
-private:
-    static const unsigned short _numberOfUnitsTypes = 14;
-    static const unsigned short _numberOfBuildingsTypes = 15;
-
 public:
     Types() = delete;
 
@@ -19,6 +15,7 @@ public:
         Probe, Zealot, Stalker, Sentry, Observer, Immortal, WarpPrism,
         Colossus, Phoenix, VoidRay, HighTemplar, DarkTemplar, Carrier, Mothership
     };
+    static const unsigned short _numberOfUnitsTypes = 14;
     static const std::string unitTypeStrings[_numberOfUnitsTypes];
 
     static enum BuildingType
@@ -26,6 +23,7 @@ public:
         Nexus, Pylon, Assimilator, Gateway, Warpgate, Forge, CyberneticsCore,
         PhotonCannon, Stargate, RoboticsFacility, TwilightControl, FleetBeacon, RoboticsBay, DarkShrine, TemplarArchives
     };
+    static const unsigned short _numberOfBuildingsTypes = 15;
     static const std::string buildingTypeStrings[_numberOfBuildingsTypes];
 };
 
