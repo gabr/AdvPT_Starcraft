@@ -21,19 +21,13 @@ protected:
     Resources::Data _requirements;
 
     // private constructor
-    Object(Types::ObjectType objectType, int specificType) : _type(objectType), _specificType(specificType)
+    Object(std::string objectName, Types::ObjectType objectType, int specificType) : _name(objectName), _type(objectType), _specificType(specificType)
     {
         if (objectType == Types::Unit)
-        {
-            _name = Types::unitTypeStrings[specificType];
-            // todo : get _requirements from XmlReader
-        }
+            _requirements = XmlReader::getRequirements(static_cast<Types::UnitType>(_specificType));
 
         else if (objectType == Types::Building)
-        {
-            _name = Types::buildingTypeStrings[specificType];
-            // todo : get _requirements from XmlReader
-        }
+            _requirements = XmlReader::getRequirements(static_cast<Types::BuildingType>(_specificType));
     }
 
     // check requirements and decrement global 
@@ -59,15 +53,15 @@ public:
         // try to find object in Units list
         for (int i = 0; i < Types::_numberOfUnitsTypes; i++)
             if (objectName == Types::unitTypeStrings[i])
-                return Object(Types::Unit, i);
+                return Object(objectName, Types::Unit, i);
 
         // try to find object in Buildings list
         for (int i = 0; i < Types::_numberOfBuildingsTypes; i++)
             if (objectName == Types::buildingTypeStrings[i])
-                return Object(Types::Building, i);
+                return Object(objectName, Types::Building, i);
 
         // return Unknown object type
-        return Object(Types::Unknown, -1);
+        return Object(objectName, Types::Unknown, -1);
     }
 
     // initialize object creatino
