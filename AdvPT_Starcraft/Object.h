@@ -17,7 +17,7 @@ protected:
     Types::ObjectType _type = Types::Unknown;
     int _specificType = -1; // UnitType or BuildingType - depends on _type
 
-    unsigned int _startTime = 0;
+    unsigned int _startTime = -1;
     Resources::Data _requirements;
 
     // private constructor
@@ -65,7 +65,7 @@ public:
     }
 
     // initialize object creatino
-    bool init(unsigned int currentTime, unsigned int& globalMineral, unsigned int &globalVespen, unsigned int &globalSupply)
+    bool init(const unsigned int currentTime, unsigned int& globalMineral, unsigned int &globalVespen, unsigned int &globalSupply)
     {
         // check requirements and decrement values if creating object is possible
         if (!checkRequirements(globalMineral, globalVespen, globalSupply))
@@ -75,6 +75,16 @@ public:
         // set _startTime to currentTime and return success
         _startTime = currentTime;
         return true;
+    }
+
+    // returns object status: true - created; false - not created or in progress
+    bool status(const unsigned int currentTime)
+    {
+        if (_startTime == -1) return false; // not created
+        if (currentTime >= _startTime + _requirements.time) // created
+            return true;
+        else                                                // in progress
+            return false;
     }
 
     std::string toString() { return _name; }
