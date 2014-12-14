@@ -11,9 +11,6 @@ class Object
 {
 protected:
 
-    // requirements
-    Resources::Data _requirements;
-
     // object informations
     std::string _name = "";
 
@@ -21,6 +18,7 @@ protected:
     int _specificType = -1; // UnitType or BuildingType - depends on _type
 
     unsigned int _startTime = 0;
+    Resources::Data _requirements;
 
     // private constructor
     Object(Types::ObjectType objectType, int specificType) : _type(objectType), _specificType(specificType)
