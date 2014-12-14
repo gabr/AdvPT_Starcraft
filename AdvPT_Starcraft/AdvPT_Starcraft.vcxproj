@@ -79,6 +79,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Types.h" />
+	<ClInclude Include="XmlReader.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="units.xml" />

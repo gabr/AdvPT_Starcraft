@@ -24,6 +24,9 @@
     <ClInclude Include="Resources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+	<ClInclude Include="XmlReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="units.xml">
