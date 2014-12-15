@@ -79,11 +79,11 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Types.h" />
-	<ClInclude Include="XmlReader.h" />
+    <ClInclude Include="XmlReader.h" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="units.xml" />
-    <Xml Include="buildings.xml" />
+    <Xml Include="units.csv" />
+    <Xml Include="buildings.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

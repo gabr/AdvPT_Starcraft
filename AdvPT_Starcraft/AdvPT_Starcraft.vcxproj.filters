@@ -24,15 +24,15 @@
     <ClInclude Include="Resources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-	<ClInclude Include="XmlReader.h">
+    <ClInclude Include="XmlReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="units.xml">
+    <Xml Include="units.csv">
       <Filter>Resource Files</Filter>
     </Xml>
-    <Xml Include="buildings.xml">
+    <Xml Include="buildings.csv">
       <Filter>Resource Files</Filter>
     </Xml>
   </ItemGroup>
