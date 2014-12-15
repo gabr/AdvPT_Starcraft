@@ -5,7 +5,7 @@
 
 #include "Types.h"
 #include "Resources.h"
-#include "XmlReader.h"
+#include "CsvReader.h"
 
 class Object
 {
@@ -24,10 +24,10 @@ protected:
     Object(std::string objectName, Types::ObjectType objectType, int specificType) : _name(objectName), _type(objectType), _specificType(specificType)
     {
         if (objectType == Types::Unit)
-            _requirements = XmlReader::getRequirements(static_cast<Types::UnitType>(_specificType));
+            _requirements = CsvReader::getRequirements(static_cast<Types::UnitType>(_specificType));
 
         else if (objectType == Types::Building)
-            _requirements = XmlReader::getRequirements(static_cast<Types::BuildingType>(_specificType));
+            _requirements = CsvReader::getRequirements(static_cast<Types::BuildingType>(_specificType));
     }
 
     // check requirements and decrement global 
@@ -51,12 +51,12 @@ public:
     static Object& createObject(const std::string objectName)
     {
         // try to find object in Units list
-        for (int i = 0; i < Types::_numberOfUnitsTypes; i++)
+        for (int i = 0; i < Types::numberOfUnitsTypes; i++)
             if (objectName == Types::unitTypeStrings[i])
                 return Object(objectName, Types::Unit, i);
 
         // try to find object in Buildings list
-        for (int i = 0; i < Types::_numberOfBuildingsTypes; i++)
+        for (int i = 0; i < Types::numberOfBuildingsTypes; i++)
             if (objectName == Types::buildingTypeStrings[i])
                 return Object(objectName, Types::Building, i);
 
