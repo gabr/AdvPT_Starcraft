@@ -1,0 +1,15 @@
+name minerals vespene supply build-time buildings
+nexus 400 0 0 100
+gateway 150 0 0 65 nexus pylon
+cybernetics_core 150 0 0 50 gateway
+robotics_facility 200 100 0 65 cybernetics_core
+robotics_bay 200 200 0 65 robotics_facility
+pylon 100 0 0 25
+assimilator 75 0 0 30
+forge 150 0 0 45 nexus pylon
+photon_cannon 150 0 0 40 forge
+twilight_council 150 100 0 50 cybernetics_core
+stargate 150 150 0 60 cybernetics_core
+templar_archives 150 200 0 50 twilight_council
+dark_shrine 100 250 0 100 twilight_council
+fleet_beacon 300 200 0 60 stargate
