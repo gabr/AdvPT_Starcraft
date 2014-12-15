@@ -22,16 +22,16 @@ private:
             if (name == Types::unitTypeStrings[i])
                 return static_cast<Types::UnitType>(i);
 
-        return Types::UnitType::Unknown;
+        return Types::UnitType::UnknownUnit;
     }
 
     static Types::BuildingType resolveBuildingType(const std::string name)
     {
-        for (int i = 1; i < Types::numberOfUnitsTypes; i++)
-        if (name == Types::unitTypeStrings[i])
+        for (int i = 1; i < Types::numberOfBuildingsTypes; i++)
+        if (name == Types::buildingTypeStrings[i])
             return static_cast<Types::BuildingType>(i);
 
-        return Types::BuildingType::Unknown;
+        return Types::BuildingType::UnknownBuilding;
     }
 
     /*
@@ -91,14 +91,14 @@ private:
         ss >> data.time;
 
         std::string buildingName;
-        Types::BuildingType buildingType = Types::BuildingType::Unknown;
+        Types::BuildingType buildingType = Types::BuildingType::UnknownBuilding;
 
-        while (!ss.eof)
+        while (!ss.eof())
         {
             ss >> buildingName;
             buildingType = resolveBuildingType(buildingName);
 
-            if (buildingType == Types::BuildingType::Unknown)
+            if (buildingType == Types::BuildingType::UnknownBuilding)
             {
                 if (error == "")
                     error = "Wrong building name for " + name + " : ";
@@ -146,7 +146,7 @@ public:
                 errorMessage += error + "\n";
 
             Types::UnitType type = resolveUnitType(unitName);
-            if (type == Types::UnitType::Unknown)
+            if (type == Types::UnitType::UnknownUnit)
                 errorMessage += "Unknown Unit type in file: " + _unitsFilePath + "\n";
 
             _unitsData[type] = data;
@@ -182,7 +182,7 @@ public:
                 errorMessage += error + "\n";
 
             Types::BuildingType type = resolveBuildingType(buildingName);
-            if (type == Types::BuildingType::Unknown)
+            if (type == Types::BuildingType::UnknownBuilding)
                 errorMessage += "Unknown Building type in file: " + _buildingsFilePath + "\n";
 
             _buildingsData[type] = data;
@@ -202,5 +202,8 @@ public:
 	}
 };
 
-const std::string CsvReader::_unitsFilePath = ".\\units.xml";
-const std::string CsvReader::_buildingsFilePath = ".\\buildings.xml";
+const std::string CsvReader::_unitsFilePath = ".\\units.csv";
+const std::string CsvReader::_buildingsFilePath = ".\\buildings.csv";
+
+std::map<Types::UnitType, Resources::Data> CsvReader::_unitsData;
+std::map<Types::BuildingType, Resources::Data> CsvReader::_buildingsData;
