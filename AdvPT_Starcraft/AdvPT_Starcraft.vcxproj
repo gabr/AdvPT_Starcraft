@@ -82,8 +82,12 @@
     <ClInclude Include="CsvReader.h" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="units.csv" />
-    <Xml Include="buildings.csv" />
+    <Text Include="units.csv">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="buildings.csv">
+      <FileType>Document</FileType>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

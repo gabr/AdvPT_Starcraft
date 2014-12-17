@@ -29,16 +29,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="units.csv">
-      <Filter>Resource Files</Filter>
-    </Xml>
-    <Xml Include="buildings.csv">
-      <Filter>Resource Files</Filter>
-    </Xml>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="buildings.csv">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="units.csv">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
