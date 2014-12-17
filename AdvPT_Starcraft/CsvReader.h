@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <tuple>
 
 #include "Types.h"
 #include "Resources.h"
@@ -74,14 +75,18 @@ private:
 
     /*
         Takes data from single line.
-        Check for errors and if any return error message.
+        Check for errors and if any put in error reference.
 
         file struct:
             name minerals vespen supply build-time buildings
     */
-    static std::string getData(const std::string line, std::string& name, Resources::Data& data)
+    static std::tuple<std::string, Resources::Data&> getData(const std::string line, std::string& error)
     {
-        std::string error = "";
+        std::string name;
+        Resources::Data data;
+
+        error = ""; // clean error reference
+
         std::stringstream ss(line);
         
         ss >> name;
@@ -112,7 +117,7 @@ private:
 
         }
 
-        return error;
+        return std::make_tuple(name, data);
     }
 
 public:
@@ -137,19 +142,20 @@ public:
         while (std::getline(file, line))
         {
             trim(line);
-            std::string unitName;
-            Resources::Data data;
+            std::string error;
 
-            std::string error = getData(line, unitName, data);
+            auto result = getData(line, error);
             
             if (error != "")
                 errorMessage += error + "\n";
 
-            Types::UnitType type = resolveUnitType(unitName);
+            // get the unit type from name
+            Types::UnitType type = resolveUnitType(std::get<0>(result));
             if (type == Types::UnitType::UnknownUnit)
                 errorMessage += "Unknown Unit type in file: " + _unitsFilePath + "\n";
 
-            _unitsData[type] = data;
+            // get resources data
+            _unitsData[type] = std::get<1>(result);
         }
 		
         return errorMessage;
@@ -173,19 +179,20 @@ public:
         while (std::getline(file, line))
         {
             trim(line);
-            std::string buildingName;
-            Resources::Data data;
+            std::string error;
 
-            std::string error = getData(line, buildingName, data);
+            auto result = getData(line, error);
 
             if (error != "")
                 errorMessage += error + "\n";
 
-            Types::BuildingType type = resolveBuildingType(buildingName);
+            // get building type by name
+            Types::BuildingType type = resolveBuildingType(std::get<0>(result));
             if (type == Types::BuildingType::UnknownBuilding)
                 errorMessage += "Unknown Building type in file: " + _buildingsFilePath + "\n";
 
-            _buildingsData[type] = data;
+            // get resources data
+            _buildingsData[type] = std::get<1>(result);
         }
 
         return errorMessage;
