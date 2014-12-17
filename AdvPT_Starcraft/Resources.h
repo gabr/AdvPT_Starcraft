@@ -6,7 +6,7 @@
 class Resources
 {
 public:
-    virtual int produce() = 0;
+    virtual int produce(unsigned int time) = 0;
     virtual ~Resources() {}
 
     static struct Data
