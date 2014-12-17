@@ -87,5 +87,7 @@ public:
             return false;
     }
 
+    Types::ObjectType getType() { return _type; }
+
     std::string toString() { return _name; }
 };

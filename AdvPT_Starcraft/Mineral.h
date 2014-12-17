@@ -28,6 +28,23 @@ public:
 
         return minerals;
     }
+
+    /*
+        Add ojbect of Unit type.
+        Returns error if any.
+    */
+    std::string pushUnit(Object& unit)
+    {
+        // check if unit
+        if (unit.getType() != Types::ObjectType::Unit)
+            return "Wrong object type: " + Types::objectTypeStrings[unit.getType()];
+
+        // add unit
+        _nearbyUnits.push(unit);
+
+        // return no errors
+        return "";
+    }
 };
 
 const int Mineral::multiplier = 100;
