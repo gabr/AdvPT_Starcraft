@@ -76,6 +76,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Mineral.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Types.h" />
