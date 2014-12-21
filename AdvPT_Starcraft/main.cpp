@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 
+#include "Simulator.h"
 #include "CsvReader.h"
 
 using std::cout;
@@ -53,6 +54,8 @@ int main(int argc, char* argv[])
 
         cout << " > Simulating file: " << argv[i] << endl << endl;
         Simulator s(file);
+
+        file.close();
         
         string result = "";
         bool state = s.run(result, error);
