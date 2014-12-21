@@ -174,7 +174,7 @@ public:
 
         // read whole file
         std::ifstream file(_buildingsFilePath);
-1
+
         if (!file)
         {
             error += "Opening file " + _buildingsFilePath + " failed";
@@ -206,7 +206,11 @@ public:
             _buildingsData[type] = std::get<1>(result);
         }
 
-        return errorMessage;
+        // if there been some errors
+        if (errorMessage != error)
+            return false;
+
+        return true;
     }
 
 	static Resources::Data getRequirements(Types::UnitType type)
