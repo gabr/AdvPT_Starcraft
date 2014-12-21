@@ -3,9 +3,9 @@
 #include <algorithm>
 #include <forward_list>
 
-#include "Types.h"
-#include "Resources.h"
-#include "CsvReader.h"
+#include "../Types.h"
+#include "../Resources/Resources.h"
+#include "../CsvReader.h"
 
 class Object
 {
@@ -48,7 +48,7 @@ protected:
 
 public:
 
-    static Object& createObject(const std::string objectName)
+    static Object createObject(const std::string objectName)
     {
         // try to find object in Units list
         for (int i = 0; i < Types::numberOfUnitsTypes; i++)

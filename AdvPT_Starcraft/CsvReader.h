@@ -6,7 +6,7 @@
 #include <tuple>
 
 #include "Types.h"
-#include "Resources.h"
+#include "Resources/Resources.h"
 
 class CsvReader
 {
@@ -80,7 +80,7 @@ private:
         file struct:
             name minerals vespen supply build-time buildings
     */
-    static std::tuple<std::string, Resources::Data&> getData(const std::string line, std::string& error)
+    static std::tuple<std::string, Resources::Data> getData(const std::string line, std::string& error)
     {
         std::string name;
         Resources::Data data;
@@ -209,8 +209,8 @@ public:
 	}
 };
 
-const std::string CsvReader::_unitsFilePath = ".\\units.csv";
-const std::string CsvReader::_buildingsFilePath = ".\\buildings.csv";
+const std::string CsvReader::_unitsFilePath = ".\\Data\\units.csv";
+const std::string CsvReader::_buildingsFilePath = ".\\Data\\buildings.csv";
 
 std::map<Types::UnitType, Resources::Data> CsvReader::_unitsData;
 std::map<Types::BuildingType, Resources::Data> CsvReader::_buildingsData;

@@ -76,17 +76,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Mineral.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="Resources.h" />
+    <ClInclude Include="Objects\Object.h" />
+    <ClInclude Include="Resources\Mineral.h" />
+    <ClInclude Include="Resources\Resources.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="CsvReader.h" />
+    <ClInclude Include="Resources\Vespene.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="units.csv">
+    <Text Include="Data\units.csv">
       <FileType>Document</FileType>
     </Text>
-    <Text Include="buildings.csv">
+    <Text Include="Data\buildings.csv">
       <FileType>Document</FileType>
     </Text>
   </ItemGroup>
