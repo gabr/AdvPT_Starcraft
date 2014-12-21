@@ -79,6 +79,7 @@
     <ClInclude Include="Objects\Object.h" />
     <ClInclude Include="Resources\Minerals.h" />
     <ClInclude Include="Resources\Resources.h" />
+    <ClInclude Include="Resources\Supply.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="CsvReader.h" />
     <ClInclude Include="Resources\Vespene.h" />

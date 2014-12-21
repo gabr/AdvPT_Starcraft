@@ -35,11 +35,14 @@ protected:
     {
         if (_requirements.mineral <= globalMineral
             && _requirements.vespen <= globalVespen
-            && _requirements.supply <= globalSupply)
+            && (_type == Types::Building || _requirements.supply <= globalSupply)) // if building no supply required
         {
             globalMineral -= _requirements.mineral;
             globalVespen -= _requirements.vespen;
-            globalSupply -= _requirements.supply;
+
+            // only units drain supply
+            if (_type == Types::Unit)
+                globalSupply -= _requirements.supply;
             return true;
         }
 
@@ -109,6 +112,13 @@ public:
 
     Types::ObjectType getType() { return _type; }
     int getSpecificType() { return _specificType; }
+    unsigned int getSupply()
+    {
+        if (isBuilding())
+            return _requirements.supply;
+
+        return 0;
+    }
 
     std::string toString() { return _name; }
 };
