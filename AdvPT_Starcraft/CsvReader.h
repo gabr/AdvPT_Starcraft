@@ -82,10 +82,10 @@ private:
     */
     static std::tuple<std::string, Resources::Data> getData(const std::string line, std::string& error)
     {
+        bool firstError = true;
+
         std::string name;
         Resources::Data data;
-
-        error = ""; // clean error reference
 
         std::stringstream ss(line);
         
@@ -105,8 +105,11 @@ private:
 
             if (buildingType == Types::BuildingType::UnknownBuilding)
             {
-                if (error == "")
-                    error = "Wrong building name for " + name + " : ";
+                if (firstError)
+                {
+                    error += "Wrong building name for " + name + " : ";
+                    firstError = false;
+                }
 
                 error += buildingName + ", ";
             }
@@ -124,15 +127,19 @@ public:
 
 	CsvReader() = delete;
 
-	static std::string updateUnits()
+	static bool updateUnits(std::string& error)
 	{	
-        std::string errorMessage = "";
+        std::string errorMessage = error;
 
         // read whole file
         std::ifstream file(_unitsFilePath);
 
         if (!file)
-            return "Opening file " + _unitsFilePath + " failed";
+        {
+           error += "Opening file " + _unitsFilePath + " failed";
+           file.close();
+           return false;
+        }
 
         std::string line;
 
@@ -142,34 +149,38 @@ public:
         while (std::getline(file, line))
         {
             trim(line);
-            std::string error;
 
             auto result = getData(line, error);
-            
-            if (error != "")
-                errorMessage += error + "\n";
 
             // get the unit type from name
             Types::UnitType type = resolveUnitType(std::get<0>(result));
             if (type == Types::UnitType::UnknownUnit)
-                errorMessage += "Unknown Unit type in file: " + _unitsFilePath + "\n";
+                error += "Unknown Unit type in file: " + _unitsFilePath + "\n";
 
             // get resources data
             _unitsData[type] = std::get<1>(result);
         }
 		
-        return errorMessage;
+        // if there been some errors
+        if (errorMessage != error)
+            return false;
+
+        return true;
 	}
 
-    static std::string updateBuildings()
+    static bool updateBuildings(std::string& error)
     {
-        std::string errorMessage = "";
+        std::string errorMessage = error;
 
         // read whole file
         std::ifstream file(_buildingsFilePath);
-
+1
         if (!file)
-            return "Opening file " + _buildingsFilePath + " failed";
+        {
+            error += "Opening file " + _buildingsFilePath + " failed";
+            file.close();
+            return false;
+        }
 
         std::string line;
 
