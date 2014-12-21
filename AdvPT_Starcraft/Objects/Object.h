@@ -61,7 +61,7 @@ public:
                 return Object(objectName, Types::Building, i);
 
         // return Unknown object type
-        return Object(objectName, Types::Unknown, -1);
+        return Object(objectName, Types::Unknown, 0);
     }
 
     // initialize object creatino
@@ -87,7 +87,28 @@ public:
             return false;
     }
 
+    bool isUnit() { return _type == Types::ObjectType::Unit; }
+    bool isBuilding() { return _type == Types::ObjectType::Building; }
+    bool isUnknown() { return _type == Types::ObjectType::Unknown; }
+
+    bool isUnit(Types::UnitType unitType)
+    {
+        if (!isUnit()) return false;
+        if (static_cast<Types::UnitType>(_specificType) != unitType) return false;
+
+        return true;
+    }
+
+    bool isBuilding(Types::BuildingType buildingType)
+    {
+        if (!isBuilding()) return false;
+        if (static_cast<Types::BuildingType>(_specificType) != buildingType) return false;
+
+        return true;
+    }
+
     Types::ObjectType getType() { return _type; }
+    int getSpecificType() { return _specificType; }
 
     std::string toString() { return _name; }
 };

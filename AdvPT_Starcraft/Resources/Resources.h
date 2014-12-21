@@ -16,7 +16,7 @@ public:
         std::forward_list<Types::BuildingType> required_buildings;
     };
 
-    static enum Type { Unknown, Mineral, Vespene, Supply };
+    static enum Type { Unknown, Minerals, Vespene, Supply };
 
     virtual int produce(unsigned int time) = 0;
     virtual Resources::Type getType() = 0;

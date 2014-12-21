@@ -24,16 +24,13 @@
     <ClInclude Include="Resources\Resources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Resources\Mineral.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Resources\Vespene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Resources\Supply.h">
+    <ClInclude Include="Resources\Minerals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
