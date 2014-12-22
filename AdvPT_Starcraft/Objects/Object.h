@@ -67,6 +67,15 @@ public:
         return Object(objectName, Types::Unknown, 0);
     }
 
+    static Object createObject(const Types::ObjectType type, const int specificType)
+    {
+        if (type == 0 || specificType == 0) // unknown object
+            return Object(Types::objectTypeStrings[0], Types::ObjectType::Unknown, 0);
+
+        std::string name = type == Types::Unit ? Types::unitTypeStrings[specificType] : Types::buildingTypeStrings[specificType];
+        return Object(name, type, specificType);
+    }
+
     // initialize object creatino
     bool init(const unsigned int currentTime, unsigned int& globalMineral, unsigned int &globalVespen, unsigned int &globalSupply)
     {
@@ -81,7 +90,7 @@ public:
     }
 
     // returns object status: true - created; false - not created or in progress
-    bool status(const unsigned int currentTime)
+    bool status(const unsigned int currentTime) const 
     {
         if (_startTime == -1) return false; // not created
         if (currentTime >= _startTime + _requirements.time) // created
@@ -90,11 +99,11 @@ public:
             return false;
     }
 
-    bool isUnit() { return _type == Types::ObjectType::Unit; }
-    bool isBuilding() { return _type == Types::ObjectType::Building; }
-    bool isUnknown() { return _type == Types::ObjectType::Unknown; }
+    bool isUnit() const { return _type == Types::ObjectType::Unit; }
+    bool isBuilding() const { return _type == Types::ObjectType::Building; }
+    bool isUnknown() const { return _type == Types::ObjectType::Unknown; }
 
-    bool isUnit(Types::UnitType unitType)
+    bool isUnit(const Types::UnitType unitType) const
     {
         if (!isUnit()) return false;
         if (static_cast<Types::UnitType>(_specificType) != unitType) return false;
@@ -102,7 +111,7 @@ public:
         return true;
     }
 
-    bool isBuilding(Types::BuildingType buildingType)
+    bool isBuilding(const Types::BuildingType buildingType) const
     {
         if (!isBuilding()) return false;
         if (static_cast<Types::BuildingType>(_specificType) != buildingType) return false;
@@ -110,9 +119,9 @@ public:
         return true;
     }
 
-    Types::ObjectType getType() { return _type; }
-    int getSpecificType() { return _specificType; }
-    unsigned int getSupply()
+    Types::ObjectType getType() const { return _type; }
+    int getSpecificType() const { return _specificType; }
+    unsigned int getSupply() const 
     {
         if (isBuilding())
             return _requirements.supply;
@@ -120,5 +129,5 @@ public:
         return 0;
     }
 
-    std::string toString() { return _name; }
+    std::string toString() const { return _name; }
 };

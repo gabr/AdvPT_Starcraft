@@ -41,7 +41,7 @@ public:
         Checks Unit type and returns false if it is wrong
             - in that case puts message in error reference.
     */
-   bool assignProbe(Object probe, std::string& error)
+   bool assignProbe(const Object probe, std::string& error)
     {
         // check if Unit and Probe
        if (!probe.isUnit(Types::UnitType::Probe))

@@ -4,8 +4,8 @@
 namespace Types
 {
     // enums
-    enum ObjectType { Unit, Building, Unknown };
-    const std::string objectTypeStrings[3] = { "unit", "building", "unknown" };
+    enum ObjectType { Unknown, Unit, Building };
+    const std::string objectTypeStrings[3] = { "unknown", "unit", "building" };
 
     enum UnitType
     {
