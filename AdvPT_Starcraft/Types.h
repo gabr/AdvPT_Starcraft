@@ -20,10 +20,10 @@ namespace Types
     enum BuildingType
     {
         UnknownBuilding, Nexus, Pylon, Assimilator, Gateway, Warpgate, Forge, CyberneticsCore,
-        PhotonCannon, Stargate, RoboticsFacility, TwilightCouncil, FleetBeacon, RoboticsBay, DarkShrine, TemplarArchives
+        PhotonCannon, Stargate, RoboticsFacility, TwilightCouncil, FleatBacon, RoboticsBay, DarkShrine, TemplarArchives
     };
     const unsigned short numberOfBuildingsTypes = 16;
     const std::string buildingTypeStrings[numberOfBuildingsTypes] = {
         "unknown_building", "nexus", "pylon", "assimilator", "gateway", "warpgate", "forge", "cybernetics_core",
-        "photon_cannon", "stargate", "robotics_facility", "twilight_council", "fleet_beacon", "robotics_bay", "dark_shrine", "templar_archives" };
+        "photon_cannon", "stargate", "robotics_facility", "twilight_council", "fleat_bacon", "robotics_bay", "dark_shrine", "templar_archives" };
 };
