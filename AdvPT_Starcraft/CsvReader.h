@@ -194,13 +194,10 @@ public:
 
             auto result = getData(line, error);
 
-            if (error != "")
-                errorMessage += error + "\n";
-
             // get building type by name
             Types::BuildingType type = resolveBuildingType(std::get<0>(result));
             if (type == Types::BuildingType::UnknownBuilding)
-                errorMessage += "Unknown Building type in file: " + _buildingsFilePath + "\n";
+                error += "Unknown Building type in file: " + _buildingsFilePath + "\n";
 
             // get resources data
             _buildingsData[type] = std::get<1>(result);
