@@ -18,7 +18,7 @@ public:
 
     static enum Type { Unknown, Minerals, Vespene, Supply };
 
-    virtual int produce(unsigned int time) = 0;
+    virtual unsigned int produce(unsigned int time) = 0;
     virtual Resources::Type getType() = 0;
 
     virtual ~Resources() {}

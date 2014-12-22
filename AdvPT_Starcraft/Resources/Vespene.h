@@ -16,23 +16,23 @@ private:
     unsigned int _numberOfAssimilators = 0;
     unsigned int _remainTime = 0;
     unsigned int _probesCount = 0;
+    unsigned int _totalVespene = 0;
 
 public:
 
     Vespene(unsigned int numberOfVespenes) : _numberOfVespenes(numberOfVespenes) {}
 
-    int produce(unsigned int time)
+    unsigned int produce(unsigned int time)
     {
-        int tmp = (time * multiplier) + _remainTime;;
+        _remainTime += secondsPerVespen * time;
 
-        // counting number of minerals to return
-        int minerals = tmp / secondsPerVespen;
-        minerals *= _probesCount;
+        unsigned int vespen = _remainTime / multiplier;
+        _remainTime -= vespen * multiplier;
 
-        // store remainig time
-        _remainTime = tmp % secondsPerVespen;
+        unsigned int result = vespen * _numberOfAssimilators * _probesCount;
+        _totalVespene += result;
 
-        return minerals;
+        return result;
     }
 
     Resources::Type getType() { return Resources::Vespene; }
@@ -68,23 +68,16 @@ public:
     Checks Unit type and returns false if it is wrong
     - in that case puts message in error reference.
     */
-    bool assignProbe(Object probe, std::string& error)
+    bool assignProbe(const unsigned int numberOfProbessToAssign, std::string& error)
     {
-        if (_probesCount == probesPerVespene * _numberOfAssimilators)
+        if (_probesCount + numberOfProbessToAssign > probesPerVespene * _numberOfAssimilators)
         {
-            error += "All assigned Assimilators has already max number of Probes.";
-            return false;
-        }
-
-        // check if Unit and Probe
-        if (!probe.isUnit(Types::UnitType::Probe))
-        {
-            error += "Wrong object type, only Probes can be assign.";
+            error += "You tried to add to much Probes!";
             return false;
         }
 
         // add unit
-        ++_probesCount;
+        _probesCount += numberOfProbessToAssign;
 
         // return no errors
         return true;
@@ -114,6 +107,13 @@ public:
         // return no errors
         return true;
     }
+
+    unsigned int freeProbesSlots()
+    {
+        return probesPerVespene * _numberOfAssimilators - _probesCount;
+    }
+
+    unsigned int getTotalVespene() { return _totalVespene; }
 };
 
 const int Vespene::multiplier = 100;

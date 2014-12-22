@@ -17,7 +17,7 @@ protected:
     Types::ObjectType _type = Types::Unknown;
     int _specificType = -1; // UnitType or BuildingType - depends on _type
 
-    unsigned int _startTime = -1;
+    unsigned int _startTime = 0;
     Resources::Data _requirements;
 
     // private constructor

@@ -7,14 +7,14 @@
 class Supply : public Resources
 {
 private:
+    unsigned int _tmp = 0;
     unsigned int _supply = 0;
 
 public:
-    int produce(unsigned int time)
+    unsigned int produce(unsigned int time)
     {
-        unsigned int tmp = _supply;
-        _supply = 0;
-
+        unsigned int tmp = _tmp;
+        _tmp = 0;
         return tmp;
     }
 
@@ -29,9 +29,11 @@ public:
             return false;
         }
 
-        _supply += building.getSupply();
+        _supply += _tmp = building.getSupply();
 
         return true;
     }
+
+    unsigned int getTotalSupply() { return _supply; }
 };
 

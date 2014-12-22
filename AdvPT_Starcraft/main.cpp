@@ -56,13 +56,9 @@ int main(int argc, char* argv[])
         Simulator s(file);
 
         file.close();
-        
-        string result = "";
-        bool state = s.run(result, error);
 
-        if (state)
-            cout << result << endl;
-        else
+        // start simulation
+        if (!s.run(error))
             cout << error << endl;
     }
 

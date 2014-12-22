@@ -1,7 +1,6 @@
 #pragma once
 #include <stack>
 
-#include "../Objects/Object.h"
 #include "Resources.h"
 
 class Minerals : public Resources
@@ -10,48 +9,36 @@ private:
     const static int multiplier;
     const static int secondsPerMineral;
 
-    unsigned int _numberOfMinerals;
     unsigned int _remainTime = 0;
     unsigned int _probesCount = 0;
+    unsigned int _totalMinerals = 0;
+
 public:
 
-    Minerals(unsigned int numberOfMinerals) : _numberOfMinerals(numberOfMinerals) {}
-
-    int produce(unsigned int time)
+    unsigned int produce(unsigned int time)
     {
-        int tmp = (time * multiplier) + _remainTime;;
+        _remainTime += secondsPerMineral * time;
 
-        // counting number of minerals to return
-        int minerals = tmp / secondsPerMineral;
-        minerals *= _probesCount;
-        
-        // store remainig time
-        _remainTime = tmp % secondsPerMineral;
+        unsigned int minerals = _remainTime / multiplier;
+        _remainTime -= minerals * multiplier;
 
-        return minerals;
+        _totalMinerals += minerals * _probesCount;
+        return minerals * _probesCount;
     }
 
     Resources::Type getType() { return Resources::Minerals; }
 
     unsigned int getNumberOfProbes() { return _probesCount; }
-    unsigned int getNumberOfMinerals() { return _numberOfMinerals; }
 
     /*
         Add Probe to Minerals.
         Checks Unit type and returns false if it is wrong
             - in that case puts message in error reference.
     */
-   bool assignProbe(const Object probe, std::string& error)
+    bool assignProbe(const unsigned int numberOfProbessToAssign)
     {
-        // check if Unit and Probe
-       if (!probe.isUnit(Types::UnitType::Probe))
-       {
-           error += "Wrong object type, only Probes can be assign.";
-           return false;
-       }
-
         // add unit
-        ++_probesCount;
+        _probesCount += numberOfProbessToAssign;
 
         // return no errors
         return true;
@@ -60,7 +47,7 @@ public:
     /*
         Remove Probes from Minerals.
     */
-    bool removeProbes(unsigned int numberOfProbessToRemove, std::string& error)
+    bool removeProbes(const unsigned int numberOfProbessToRemove, std::string& error)
     {
         // check if there any nearby Units
         if (_probesCount == 0)
@@ -81,6 +68,8 @@ public:
         // return no errors
         return true;
     }
+
+    unsigned int getTotalMinerals() { return _totalMinerals; }
 };
 
 const int Minerals::multiplier = 100;
