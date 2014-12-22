@@ -205,7 +205,10 @@ public:
             << ",availableSupply:" << _supply.get()->getTotalSupply()
             << std::endl;
 
-        return true;
+        if (_time > timeLimit)
+            return false;
+        else
+            return true;
     }
 };
 
