@@ -30,6 +30,9 @@ protected:
     // check requirements and decrement global 
     bool checkRequirements(unsigned int& globalMineral, unsigned int &globalVespen, unsigned int &globalSupply)
     {
+        if (_type == Unknown)
+            return false;
+
         if (_requirements.mineral <= globalMineral
             && _requirements.vespen <= globalVespen
             && (_type == Building || _requirements.supply <= globalSupply)) // if building no supply required
@@ -80,7 +83,7 @@ public:
     ObjectType getType() const { return _type; }
     unsigned int getSupply() const 
     {
-        if (getType() == Building)
+        if (_type == Building)
             return _requirements.supply;
 
         return 0;
