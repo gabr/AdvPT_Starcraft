@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 
+#include "../Types.h"
 #include "Resources.h"
 #include "../Objects/Object.h"
 
@@ -23,7 +24,7 @@ public:
     bool extractSupply(Object building, std::string& error)
     {
         // check if object is building
-        if (!building.getType() == Building)
+        if (!building.getType() == Types::ObjectType::Building)
         {
             error += "Supply can be extract only from buildings";
             return false;

@@ -62,10 +62,10 @@ private:
 
         // create objects
         for (int i = 0; i < 6; i++) // probes
-            _objects.push_back(Object::createObject(Unit, "probe"));
+            _objects.push_back(Object::createObject(Types::ObjectType::Unit, "probe"));
 
         // nexus
-        _objects.push_back(Object::createObject(Building, "nexus"));
+        _objects.push_back(Object::createObject(Types::ObjectType::Building, "nexus"));
 
 
         // move all probes to Minerals
@@ -112,7 +112,7 @@ public:
         unsigned int vespene = 0;
 
         auto currentData = std::begin(_data);
-        Object& currentObject = Object::createObject(Unknown, 0);
+        Object& currentObject = Object::createObject(Types::ObjectType::Unknown, 0);
 
         while (_time <= timeLimit)
         {
@@ -129,7 +129,7 @@ public:
                     if (o->toString() == "assimilator")
                         _vespene.get()->assignAssimilator(*o, error);
 
-                    if (o->getType() == Building)
+                    if (o->getType() == Types::ObjectType::Building)
                         _supply.get()->extractSupply(*o, error);
 
                     // if there any empty slots near Vespenes then get Probes from minerals
@@ -157,7 +157,7 @@ public:
                 currentObject = Object::createObject(*currentData);
 
                 // if unknown then data in file was corrupted
-                if (currentObject.getType() == Unknown)
+                if (currentObject.getType() == Types::ObjectType::Unknown)
                 {
                     error += "Wrong data in file. Can not create Object from: " + *currentData;
                     return false;

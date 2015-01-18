@@ -3,11 +3,9 @@
 #include <algorithm>
 #include <forward_list>
 
+#include "../Types.h"
 #include "../Resources/Resources.h"
 #include "../CsvReader.h"
-
-enum ObjectType { Unknown, Unit, Building };
-const std::string objectTypeStrings[3] = { "unknown", "unit", "building" };
 
 class Object
 {
@@ -15,14 +13,14 @@ protected:
 
     // object informations
     std::string _name = "";
-
-    ObjectType _type = Unknown;
+    
+    Types::ObjectType _type = Types::ObjectType::Unknown;
 
     unsigned int _startTime = 0;
     Resources::Data _requirements;
 
     // private constructor
-    Object(const std::string objectName, const ObjectType objectType) : _name(objectName), _type(objectType)
+    Object(const std::string objectName, const Types::ObjectType objectType) : _name(objectName), _type(objectType)
     {
         _requirements = CsvReader::getRequirements(objectType, objectName);
     }
@@ -30,18 +28,18 @@ protected:
     // check requirements and decrement global 
     bool checkRequirements(unsigned int& globalMineral, unsigned int &globalVespen, unsigned int &globalSupply)
     {
-        if (_type == Unknown)
+        if (_type == Types::Unknown)
             return false;
 
         if (_requirements.mineral <= globalMineral
             && _requirements.vespen <= globalVespen
-            && (_type == Building || _requirements.supply <= globalSupply)) // if building no supply required
+            && (_type == Types::Building || _requirements.supply <= globalSupply)) // if building no supply required
         {
             globalMineral -= _requirements.mineral;
             globalVespen -= _requirements.vespen;
 
             // only units drain supply
-            if (_type == Unit)
+            if (_type == Types::Unit)
                 globalSupply -= _requirements.supply;
             return true;
         }
@@ -53,11 +51,11 @@ public:
 
     static Object createObject(const std::string name)
     {
-        ObjectType type = CsvReader::resolveType(name);
+        Types::ObjectType type = CsvReader::resolveType(name);
         return createObject(type, name);
     }
 
-    static Object createObject(const ObjectType type, const std::string name)
+    static Object createObject(const Types::ObjectType type, const std::string name)
     {
         std::string tmpName = name;
         std::transform(tmpName.begin(), tmpName.end(), tmpName.begin(), ::tolower);
@@ -89,10 +87,10 @@ public:
             return false;
     }
 
-    ObjectType getType() const { return _type; }
+    Types::ObjectType getType() const { return _type; }
     unsigned int getSupply() const 
     {
-        if (_type == Building)
+        if (_type == Types::Building)
             return _requirements.supply;
 
         return 0;

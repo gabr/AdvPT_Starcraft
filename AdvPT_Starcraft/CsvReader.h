@@ -5,6 +5,7 @@
 #include <sstream>
 #include <tuple>
 
+#include "Types.h"
 #include "Objects/Object.h"
 #include "Resources/Resources.h"
 
@@ -88,14 +89,14 @@ private:
         return std::make_tuple(name, data);
     }
 
-    static bool update(const ObjectType type, std::string& error)
+    static bool update(const Types::ObjectType type, std::string& error)
     {
         std::string errorMessage = error;
         std::string filePath;
 
-        if (type == Unit) {
+        if (type == Types::Unit) {
             filePath = _unitsFilePath;
-        } if (type == Building) {
+        } if (type == Types::Building) {
             filePath = _unitsFilePath;
         } else {
             error += "\nWrong Object type";
@@ -136,36 +137,36 @@ public:
 
 	static bool updateUnits(std::string& error)
 	{	
-        return update(Unit, error);
+        return update(Types::ObjectType::Unit, error);
 	}
 
     static bool updateBuildings(std::string& error)
     {
-        return update(Building, error);
+        return update(Types::ObjectType::Building, error);
     }
 
-	static Resources::Data getRequirements(const ObjectType type, const std::string name)
+	static Resources::Data getRequirements(const Types::ObjectType type, const std::string name)
 	{
-        if (type == Unit)
+        if (type == Types::Unit)
 		    return _unitsData[name];
         else
             return _buildingsData[name];
 	}
 
-    static ObjectType resolveType(const std::string name)
+    static Types::ObjectType resolveType(const std::string name)
     {
         // check if unit
         for (auto unit : _unitsData)
             if (unit.first == name)
-                return Unit;
+                return Types::ObjectType::Unit;
 
         // check if building
         for (auto building : _buildingsData)
             if (building.first == name)
-                return Building;
+                return Types::ObjectType::Building;
 
         // unknown
-        return Unknown;
+        return Types::ObjectType::Unknown;
     }
 };
 
