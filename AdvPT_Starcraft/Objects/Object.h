@@ -51,10 +51,12 @@ protected:
 
 public:
 
-    static Object createObject(const ObjectType type, const std::string objectName)
+    static Object createObject(const ObjectType type, const std::string name)
     {
+        std::transform(name.begin(), name.end(), name.begin(), ::tolower);
+
         // return object
-        return Object(objectName, type);
+        return Object(name, type);
     }
 
     // initialize object creatino
@@ -87,6 +89,12 @@ public:
             return _requirements.supply;
 
         return 0;
+    }
+
+    bool compareName(std::string name)
+    {
+        std::transform(name.begin(), name.end(), name.begin(), ::tolower);
+        return _name == name;
     }
 
     std::string toString() const { return _name; }

@@ -50,7 +50,7 @@ public:
         }
 
         // check type
-        if (assimilator.toString() != "assimilator")
+        if (!assimilator.compareName("assimilator"))
         {
             error += "Wrong object type, olny Assimilators can be assign.";
             return false;
