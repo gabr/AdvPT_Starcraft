@@ -110,7 +110,6 @@ public:
         unsigned int tmp = 0;
         unsigned int minerals = 0;
         unsigned int vespene = 0;
-        bool action = false;
 
         auto currentData = std::begin(_data);
         Object& currentObject = Object::createObject(Types::ObjectType::Unknown, 0);

@@ -44,7 +44,7 @@ private:
         int currentIndex = 0;
         bool whitespace = false;
 
-        for (int i = 0; i < buff.length(); i++)
+        for (unsigned int i = 0; i < buff.length(); i++)
         {
             if (!isspace(buff[i]))
             {
@@ -61,7 +61,7 @@ private:
         }
 
         // clean the tail
-        for (int i = buff.length() - 1; i >= currentIndex; i--)
+        for (unsigned int i = buff.length() - 1; i >= currentIndex; i--)
             buff[i] = '\0';
 
         // clean the head
