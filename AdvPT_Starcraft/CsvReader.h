@@ -125,7 +125,10 @@ private:
             auto result = getData(line, error);
 
             // get resources data
-            _unitsData[std::get<0>(result)] = std::get<1>(result);
+            if (type == Types::ObjectType::Unit)
+                _unitsData[std::get<0>(result)] = std::get<1>(result);
+            else
+                _buildingsData[std::get<0>(result)] = std::get<1>(result);
         }
 
         return true;
