@@ -1,8 +1,6 @@
 #pragma once
 #include <forward_list>
 
-#include "../Types.h"
-
 class Resources
 {
 public:
@@ -13,7 +11,7 @@ public:
         unsigned int vespen = 0;
         unsigned int supply = 0;
         unsigned int time = 0;
-        std::forward_list<Types::BuildingType> required_buildings;
+        std::forward_list<std::string> required_buildings;
     };
 
     static enum Type { Unknown, Minerals, Vespene, Supply };

@@ -26,7 +26,7 @@ public:
         return minerals * _probesCount;
     }
 
-    Resources::Type getType() { return Resources::Minerals; }
+    Resources::Type getType() { return Resources::Type::Minerals; }
 
     unsigned int getNumberOfProbes() { return _probesCount; }
 

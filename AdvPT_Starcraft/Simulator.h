@@ -62,10 +62,10 @@ private:
 
         // create objects
         for (int i = 0; i < 6; i++) // probes
-            _objects.push_back(Object::createObject(Types::Unit, Types::Probe));
+            _objects.push_back(Object::createObject(Types::ObjectType::Unit, "probe"));
 
         // nexus
-        _objects.push_back(Object::createObject(Types::Building, Types::Nexus));
+        _objects.push_back(Object::createObject(Types::ObjectType::Building, "nexus"));
 
 
         // move all probes to Minerals
@@ -112,7 +112,7 @@ public:
         unsigned int vespene = 0;
 
         auto currentData = std::begin(_data);
-        Object& currentObject = Object::createObject(Types::ObjectType::Unknown, 0);
+        Object& currentObject = Object::createObject(Types::ObjectType::Unknown, "");
 
         while (_time <= timeLimit)
         {
@@ -123,13 +123,13 @@ public:
                 {
                     _objects.push_back(*o);
 
-                    if (o->isUnit(Types::Probe))
+                    if (o->toString() == "probe")
                         _minerals.get()->assignProbe(1);
 
-                    if (o->isBuilding(Types::Assimilator))
+                    if (o->toString() == "assimilator")
                         _vespene.get()->assignAssimilator(*o, error);
 
-                    if (o->isBuilding())
+                    if (o->getType() == Types::ObjectType::Building)
                         _supply.get()->extractSupply(*o, error);
 
                     // if there any empty slots near Vespenes then get Probes from minerals

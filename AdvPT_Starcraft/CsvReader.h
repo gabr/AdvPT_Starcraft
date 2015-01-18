@@ -6,6 +6,7 @@
 #include <tuple>
 
 #include "Types.h"
+#include "Objects/Object.h"
 #include "Resources/Resources.h"
 
 class CsvReader
@@ -14,26 +15,8 @@ private:
 	static const std::string _unitsFilePath;
 	static const std::string _buildingsFilePath;
 
-	static std::map<Types::UnitType, Resources::Data> _unitsData;
-	static std::map<Types::BuildingType, Resources::Data> _buildingsData;
-
-    static Types::UnitType resolveUnitType(const std::string name)
-    {
-        for (int i = 1; i < Types::numberOfUnitsTypes; i++)
-            if (name == Types::unitTypeStrings[i])
-                return static_cast<Types::UnitType>(i);
-
-        return Types::UnitType::UnknownUnit;
-    }
-
-    static Types::BuildingType resolveBuildingType(const std::string name)
-    {
-        for (int i = 1; i < Types::numberOfBuildingsTypes; i++)
-        if (name == Types::buildingTypeStrings[i])
-            return static_cast<Types::BuildingType>(i);
-
-        return Types::BuildingType::UnknownBuilding;
-    }
+	static std::map<std::string, Resources::Data> _unitsData;
+	static std::map<std::string, Resources::Data> _buildingsData;
 
     /*
       Removes additional whitechars at the beggining and at the end of the buff.
@@ -96,88 +79,36 @@ private:
         ss >> data.time;
 
         std::string buildingName;
-        Types::BuildingType buildingType = Types::BuildingType::UnknownBuilding;
 
         while (!ss.eof())
         {
             ss >> buildingName;
-            buildingType = resolveBuildingType(buildingName);
-
-            if (buildingType == Types::BuildingType::UnknownBuilding)
-            {
-                if (firstError)
-                {
-                    error += "Wrong building name for " + name + " : ";
-                    firstError = false;
-                }
-
-                error += buildingName + ", ";
-            }
-            else
-            {
-                data.required_buildings.push_front(buildingType);
-            }
-
+            data.required_buildings.push_front(buildingName);
         }
 
         return std::make_tuple(name, data);
     }
 
-public:
-
-	CsvReader() = delete;
-
-	static bool updateUnits(std::string& error)
-	{	
-        std::string errorMessage = error;
-
-        // read whole file
-        std::ifstream file(_unitsFilePath);
-
-        if (!file)
-        {
-           error += "Opening file " + _unitsFilePath + " failed";
-           file.close();
-           return false;
-        }
-
-        std::string line;
-
-        // get header
-        std::getline(file, line);
-
-        while (std::getline(file, line))
-        {
-            trim(line);
-
-            auto result = getData(line, error);
-
-            // get the unit type from name
-            Types::UnitType type = resolveUnitType(std::get<0>(result));
-            if (type == Types::UnitType::UnknownUnit)
-                error += "Unknown Unit type in file: " + _unitsFilePath + "\n";
-
-            // get resources data
-            _unitsData[type] = std::get<1>(result);
-        }
-		
-        // if there been some errors
-        if (errorMessage != error)
-            return false;
-
-        return true;
-	}
-
-    static bool updateBuildings(std::string& error)
+    static bool update(const Types::ObjectType type, std::string& error)
     {
         std::string errorMessage = error;
+        std::string filePath;
 
-        // read whole file
-        std::ifstream file(_buildingsFilePath);
+        if (type == Types::ObjectType::Unit) {
+            filePath = _unitsFilePath;
+        } else if (type == Types::ObjectType::Building) {
+            filePath = _buildingsFilePath;
+        } else {
+            error += "\nWrong Object type";
+            return false;
+        }
+
+        // read file
+        std::ifstream file(filePath);
 
         if (!file)
         {
-            error += "Opening file " + _buildingsFilePath + " failed";
+            error += "\nOpening file " + filePath + " failed";
             file.close();
             return false;
         }
@@ -190,39 +121,60 @@ public:
         while (std::getline(file, line))
         {
             trim(line);
-            std::string error;
 
             auto result = getData(line, error);
 
-            // get building type by name
-            Types::BuildingType type = resolveBuildingType(std::get<0>(result));
-            if (type == Types::BuildingType::UnknownBuilding)
-                error += "Unknown Building type in file: " + _buildingsFilePath + "\n";
-
             // get resources data
-            _buildingsData[type] = std::get<1>(result);
+            if (type == Types::ObjectType::Unit)
+                _unitsData[std::get<0>(result)] = std::get<1>(result);
+            else
+                _buildingsData[std::get<0>(result)] = std::get<1>(result);
         }
-
-        // if there been some errors
-        if (errorMessage != error)
-            return false;
 
         return true;
     }
 
-	static Resources::Data getRequirements(Types::UnitType type)
-	{
-		return _unitsData[type];
+public:
+
+	CsvReader() = delete;
+
+	static bool updateUnits(std::string& error)
+	{	
+        return update(Types::ObjectType::Unit, error);
 	}
 
-	static Resources::Data getRequirements(Types::BuildingType type)
+    static bool updateBuildings(std::string& error)
+    {
+        return update(Types::ObjectType::Building, error);
+    }
+
+	static Resources::Data getRequirements(const Types::ObjectType type, const std::string name)
 	{
-		return _buildingsData[type];
+        if (type == Types::Unit)
+		    return _unitsData[name];
+        else
+            return _buildingsData[name];
 	}
+
+    static Types::ObjectType resolveType(const std::string name)
+    {
+        // check if unit
+        for (auto unit : _unitsData)
+            if (unit.first == name)
+                return Types::ObjectType::Unit;
+
+        // check if building
+        for (auto building : _buildingsData)
+            if (building.first == name)
+                return Types::ObjectType::Building;
+
+        // unknown
+        return Types::ObjectType::Unknown;
+    }
 };
 
 const std::string CsvReader::_unitsFilePath = ".\\Data\\units.csv";
 const std::string CsvReader::_buildingsFilePath = ".\\Data\\buildings.csv";
 
-std::map<Types::UnitType, Resources::Data> CsvReader::_unitsData;
-std::map<Types::BuildingType, Resources::Data> CsvReader::_buildingsData;
+std::map<std::string, Resources::Data> CsvReader::_unitsData;
+std::map<std::string, Resources::Data> CsvReader::_buildingsData;
