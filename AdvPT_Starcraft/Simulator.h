@@ -112,7 +112,7 @@ public:
         unsigned int vespene = 0;
 
         auto currentData = std::begin(_data);
-        Object& currentObject = Object::createObject(Types::ObjectType::Unknown, 0);
+        Object& currentObject = Object::createObject(Types::ObjectType::Unknown, "");
 
         while (_time <= timeLimit)
         {

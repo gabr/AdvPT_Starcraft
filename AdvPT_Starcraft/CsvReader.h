@@ -94,10 +94,10 @@ private:
         std::string errorMessage = error;
         std::string filePath;
 
-        if (type == Types::Unit) {
+        if (type == Types::ObjectType::Unit) {
             filePath = _unitsFilePath;
-        } if (type == Types::Building) {
-            filePath = _unitsFilePath;
+        } else if (type == Types::ObjectType::Building) {
+            filePath = _buildingsFilePath;
         } else {
             error += "\nWrong Object type";
             return false;
