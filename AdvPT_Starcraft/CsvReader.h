@@ -151,6 +151,22 @@ public:
         else
             return _buildingsData[name];
 	}
+
+    static ObjectType resolveType(const std::string name)
+    {
+        // check if unit
+        for (auto unit : _unitsData)
+            if (unit.first == name)
+                return Unit;
+
+        // check if building
+        for (auto building : _buildingsData)
+            if (building.first == name)
+                return Building;
+
+        // unknown
+        return Unknown;
+    }
 };
 
 const std::string CsvReader::_unitsFilePath = ".\\Data\\units.csv";
