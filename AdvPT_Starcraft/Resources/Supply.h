@@ -23,7 +23,7 @@ public:
     bool extractSupply(Object building, std::string& error)
     {
         // check if object is building
-        if (!building.isBuilding())
+        if (!building.getType() == Building)
         {
             error += "Supply can be extract only from buildings";
             return false;

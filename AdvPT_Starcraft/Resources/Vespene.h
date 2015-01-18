@@ -50,7 +50,7 @@ public:
         }
 
         // check type
-        if (!assimilator.isBuilding(Types::BuildingType::Assimilator))
+        if (assimilator.toString() != "assimilator")
         {
             error += "Wrong object type, olny Assimilators can be assign.";
             return false;
