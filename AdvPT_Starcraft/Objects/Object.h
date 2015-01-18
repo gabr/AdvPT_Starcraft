@@ -22,7 +22,7 @@ protected:
     Resources::Data _requirements;
 
     // private constructor
-    Object(std::string objectName, ObjectType objectType) : _name(objectName), _type(objectType)
+    Object(const std::string objectName, const ObjectType objectType) : _name(objectName), _type(objectType)
     {
         _requirements = CsvReader::getRequirements(objectType, objectName);
     }
@@ -51,12 +51,19 @@ protected:
 
 public:
 
+    static Object createObject(const std::string name)
+    {
+        ObjectType type = CsvReader::resolveType(name);
+        return createObject(type, name);
+    }
+
     static Object createObject(const ObjectType type, const std::string name)
     {
-        std::transform(name.begin(), name.end(), name.begin(), ::tolower);
+        std::string tmpName = name;
+        std::transform(tmpName.begin(), tmpName.end(), tmpName.begin(), ::tolower);
 
         // return object
-        return Object(name, type);
+        return Object(tmpName, type);
     }
 
     // initialize object creatino
@@ -89,12 +96,6 @@ public:
             return _requirements.supply;
 
         return 0;
-    }
-
-    bool compareName(std::string name)
-    {
-        std::transform(name.begin(), name.end(), name.begin(), ::tolower);
-        return _name == name;
     }
 
     std::string toString() const { return _name; }
