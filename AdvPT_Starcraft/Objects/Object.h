@@ -3,9 +3,11 @@
 #include <algorithm>
 #include <forward_list>
 
-#include "../Types.h"
 #include "../Resources/Resources.h"
 #include "../CsvReader.h"
+
+enum ObjectType { Unknown, Unit, Building };
+const std::string objectTypeStrings[3] = { "unknown", "unit", "building" };
 
 class Object
 {
@@ -14,20 +16,15 @@ protected:
     // object informations
     std::string _name = "";
 
-    Types::ObjectType _type = Types::Unknown;
-    int _specificType = -1; // UnitType or BuildingType - depends on _type
+    ObjectType _type = Unknown;
 
     unsigned int _startTime = 0;
     Resources::Data _requirements;
 
     // private constructor
-    Object(std::string objectName, Types::ObjectType objectType, int specificType) : _name(objectName), _type(objectType), _specificType(specificType)
+    Object(std::string objectName, ObjectType objectType) : _name(objectName), _type(objectType)
     {
-        if (objectType == Types::Unit)
-            _requirements = CsvReader::getRequirements(static_cast<Types::UnitType>(_specificType));
-
-        else if (objectType == Types::Building)
-            _requirements = CsvReader::getRequirements(static_cast<Types::BuildingType>(_specificType));
+        _requirements = CsvReader::getRequirements(objectType, objectName);
     }
 
     // check requirements and decrement global 
@@ -35,13 +32,13 @@ protected:
     {
         if (_requirements.mineral <= globalMineral
             && _requirements.vespen <= globalVespen
-            && (_type == Types::Building || _requirements.supply <= globalSupply)) // if building no supply required
+            && (_type == Building || _requirements.supply <= globalSupply)) // if building no supply required
         {
             globalMineral -= _requirements.mineral;
             globalVespen -= _requirements.vespen;
 
             // only units drain supply
-            if (_type == Types::Unit)
+            if (_type == Unit)
                 globalSupply -= _requirements.supply;
             return true;
         }
@@ -51,29 +48,10 @@ protected:
 
 public:
 
-    static Object createObject(const std::string objectName)
+    static Object createObject(const ObjectType type, const std::string objectName)
     {
-        // try to find object in Units list
-        for (int i = 0; i < Types::numberOfUnitsTypes; i++)
-            if (objectName == Types::unitTypeStrings[i])
-                return Object(objectName, Types::Unit, i);
-
-        // try to find object in Buildings list
-        for (int i = 0; i < Types::numberOfBuildingsTypes; i++)
-            if (objectName == Types::buildingTypeStrings[i])
-                return Object(objectName, Types::Building, i);
-
-        // return Unknown object type
-        return Object(objectName, Types::Unknown, 0);
-    }
-
-    static Object createObject(const Types::ObjectType type, const int specificType)
-    {
-        if (type == 0 || specificType == 0) // unknown object
-            return Object(Types::objectTypeStrings[0], Types::ObjectType::Unknown, 0);
-
-        std::string name = type == Types::Unit ? Types::unitTypeStrings[specificType] : Types::buildingTypeStrings[specificType];
-        return Object(name, type, specificType);
+        // return object
+        return Object(objectName, type);
     }
 
     // initialize object creatino
@@ -99,31 +77,10 @@ public:
             return false;
     }
 
-    bool isUnit() const { return _type == Types::ObjectType::Unit; }
-    bool isBuilding() const { return _type == Types::ObjectType::Building; }
-    bool isUnknown() const { return _type == Types::ObjectType::Unknown; }
-
-    bool isUnit(const Types::UnitType unitType) const
-    {
-        if (!isUnit()) return false;
-        if (static_cast<Types::UnitType>(_specificType) != unitType) return false;
-
-        return true;
-    }
-
-    bool isBuilding(const Types::BuildingType buildingType) const
-    {
-        if (!isBuilding()) return false;
-        if (static_cast<Types::BuildingType>(_specificType) != buildingType) return false;
-
-        return true;
-    }
-
-    Types::ObjectType getType() const { return _type; }
-    int getSpecificType() const { return _specificType; }
+    ObjectType getType() const { return _type; }
     unsigned int getSupply() const 
     {
-        if (isBuilding())
+        if (getType() == Building)
             return _requirements.supply;
 
         return 0;
