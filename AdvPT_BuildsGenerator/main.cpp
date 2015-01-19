@@ -3,14 +3,15 @@
 #include <string>
 #include <iostream>
 #include <random>
+#include <sstream>
 
 
 
-int coolRandom()
+int coolRandom(int min, int max)
 {
 	std::random_device rd;
 	std::mt19937 mt(rd());
-	std::uniform_real_distribution<double> dist(0,27); //27 is max index of unit
+	std::uniform_real_distribution<double> dist(min,max); 
 
 	return floor(dist(mt));
 }
@@ -18,7 +19,7 @@ int coolRandom()
 
 void unitsToTab(std::string tab[])
 {
-	const std::string _filePath = ".\\Data\\units.csv";
+	const std::string _filePath = ".\\Data\\units_generator.csv";
 
 	std::ifstream file(_filePath);
 
@@ -39,33 +40,55 @@ void unitsToTab(std::string tab[])
 }
 
 
-void randomUnitToFile(std::string tab[],std::string path)
+void randomUnitToFile(std::string tab[],std::string fname,std::string fpath)
 {
 	
 	// create path and name
-	std::string name = path + ".txt";
+	std::string name = fname + ".txt";
 	// create file
-	std::ofstream result(name);
+	std::ofstream result(fpath+name);
 	// fill file with random units
 
-	for (int j = 0; j < 20; j++)
+	int r = floor(coolRandom(15, 50));
+
+	for (int j = 0; j < r; j++)
 	{
-		int i = coolRandom();
+		int i = coolRandom(0, 27); //27 is max index of unit
 		result << tab[i] << "\n";
 	}
 }
 
-void main()
+int main(int argc, char* argv[])
 {
+	// Getting files list
+
+	if (argc < 3) // no files specified
+	{
+		std::cout << " ! error: No file specified." << std::endl;
+		std::cout << std::endl;
+		std::cout << " Usage: " << std::endl;
+		std::cout << "        " << argv[0] << " <path_to_file>" << std::endl;
+		return 1;
+	}
+
+	std::string path = argv[1];
+
+	//number of files
+	int n = 0;
+	std::stringstream ss(argv[2]);
+	ss >> n;  
+	
 	//rewrite unit from file to tab
 	std::string units[28];
 	unitsToTab(units);
 
 	// generate file with random list
-	int n = 5; //number of files
+ 
 	for (int i = 0; i < n; i++)
 	{
 		std::string name = std::to_string(i);
-		randomUnitToFile(units, name);
+		randomUnitToFile(units, name,path);
 	}
+
+	return 0;
 }
